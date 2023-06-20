@@ -1,11 +1,9 @@
 import React from 'react';
 import './App.css';
-import { Button } from 'antd'
+import { Skeleton } from './components'
 function App() {
   return (
-    <div>
-      <h1>Jira clone!</h1>
-    </div>
+    <Skeleton/>
   );
 }
 
