@@ -1,0 +1,24 @@
+.containerColumn {
+  border-radius: 20px;
+  height: 100%;
+  flex: 1;
+  background-color: #f4f5f7;
+}
+
+.todoContainer {
+  border-radius: 10px;
+  height: 4%;
+
+  margin: 12px 0px 0px 12px;
+  background-color: #cacaca;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todoText {
+  color: black;
+  font-weight: 500;
+  display: flex;
+  padding: 10px;
+}
