@@ -1,24 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-export interface Task {
-    id: number
-    name: string
-    sticker: string
-    priority: 'lowest'|'low'|'medium'|'high'|'highest'
-    storyPoints?: number
-    createdDate: string
-    assigned?: {
-        id: number
-        name: string
-    }
-}
+import { Task } from '../../types/taskcard'
 
 interface TaskState {
     tasks: Task[]
 }
 
-const initialState:TaskState = {
-    tasks:[]
+const initialState: TaskState = {
+    tasks: []
 }
 export const TaskSlice = createSlice({
     name:'task',
