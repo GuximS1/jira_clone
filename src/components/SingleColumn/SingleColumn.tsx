@@ -3,14 +3,16 @@ import { ISingleColumn } from "../../types/singlecolumn";
 import "./SingleColumn.css";
 import TaskCard from "../TaskCard/TaskCard";
 
-export const SingleColumn = ({ title }: ISingleColumn) => {
+export const SingleColumn = ({ id, name,tasks }: ISingleColumn) => {
   return (
     <div className="containerColumn">
       <div className="todoContainer">
-        <span className="todoText">{title}</span>
+        <span className="todoText">{name}</span>
       </div>
-      {Array.from({length:3}).map(()=>{
-          return <TaskCard />
+      {tasks.sort((a,b)=>a.order.row-b.order.row).map(({createdDate,id,name,order,priority,sticker,assigned,storyPoints})=>{
+          return <TaskCard id={id} name={name} order={order} priority={priority} 
+                    createdDate={createdDate} sticker={sticker} assigned={assigned}
+                    storyPoints={storyPoints} key={id}  />
         })}
     </div>
   );

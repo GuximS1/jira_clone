@@ -2,9 +2,13 @@ import React from "react";
 import { CalendarTwoTone } from "@ant-design/icons";
 import "./Skeleton.css";
 import { SingleColumn } from "../SingleColumn/SingleColumn";
-import TaskCard from "../TaskCard/TaskCard";
+import { useAppSelector } from "../../redux/store";
+
 export const Skeleton = () => {
-  const columnNames = ["TO DO", "IN PROGRESS", "CODE REVIEW", "QA", "DONE"];
+  const columns = [{id:1,name:"TO DO"}, {id:2,name:"IN PROGRESS"}, {id:3,name:"CODE REVIEW"},{id:4,name:"QA" },{id:5,name:"DONE" }];
+
+  const tasks = useAppSelector((state)=>state.task.tasks)
+  
   return (
     <div className="container">
       <p className="title">
@@ -18,11 +22,9 @@ export const Skeleton = () => {
         <div className="create-btn">Create button</div>
       </div>
       <div className="board">
-        {columnNames.map((item) => {
-          return <SingleColumn title={item}>
-            <TaskCard />
-            </SingleColumn>
-
+        {columns.map((item) => {
+          const filteredTasks = tasks.filter((singleTask)=>singleTask.order.column===item.id)
+          return <SingleColumn id={item.id} name={item.name} key={item.id} tasks={filteredTasks}  />
         })}
       </div>
     </div>

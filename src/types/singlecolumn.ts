@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-
+import { Task } from './taskcard'
 export interface ISingleColumn {
-  title: string;
-  children: ReactNode
+  id: number,
+  name: string
+  tasks: Task[]
 }

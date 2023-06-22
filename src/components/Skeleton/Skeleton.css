@@ -3,9 +3,11 @@
   height: 100vh;
   display: flex;
   flex-flow: column;
+  color: white;
 }
 .title {
   font-size: xx-large;
+  color: white;
 }
 .board-tools {
   display: flex;
@@ -14,32 +16,32 @@
 }
 .empty-board {
   display: flex;
-  border: 1px solid black;
+  border: 1px solid white;
   height: 40px;
   align-items: center;
 }
 .employee-avatars {
-  border: 1px solid black;
+  border: 1px solid white;
   display: flex;
   height: 40px;
   align-items: center;
 }
 
 .add-employee-icon {
-  border: 1px solid black;
+  border: 1px solid white;
   display: flex;
   height: 40px;
   align-items: center;
 }
 .ordering {
-  border: 1px solid black;
+  border: 1px solid white;
   display: flex;
   height: 40px;
   align-items: center;
   margin-left: auto;
 }
 .create-btn {
-  border: 1px solid black;
+  border: 1px solid white;
   display: flex;
   height: 40px;
   align-items: center;
