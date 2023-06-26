@@ -34,7 +34,36 @@ export const TaskSlice = createSlice({
             console.log('Tasks: ',state.tasks.map((item)=>({name:item.name,order:{row:item.order.row,column:item.order.column}})))
             console.log('Action: ',action.payload)
             const reOrderedTasks = state.tasks
-           console.log('Re ordered',reOrderedTasks.filter((item)=> item.order.column.toString() === action.payload.destination?.droppableId))
+            state.tasks=[...reOrderedTasks.filter((item)=>item.order.column.toString()!==action.payload.destination?.droppableId),...reOrderedTasks.filter((item)=> item.order.column.toString() === action.payload.destination?.droppableId).map((item)=>{
+                if(item.order.row>=Number(action?.payload?.destination?.index))
+                return {
+                    ...item,
+                    order:{
+                        column:item.order.column,
+                        row:item.order.row+1
+                    }
+                }
+                return item
+            })]
+            state.tasks = [...state.tasks.filter((item)=>item.order.column.toString() !== action.payload.source.droppableId),...state.tasks.filter((item)=>item.order.column.toString() === action.payload.source.droppableId).map((item)=>{
+                if(item.order.row===action.payload.source.index)
+                return {
+                    ...item,
+                    order:{
+                        column: Number(action.payload.destination?.droppableId),
+                        row: Number(action.payload.destination?.index)
+                    }
+                }
+                else if(item.order.row>action.payload.source.index)
+                return {
+                    ...item,
+                    order: {
+                        column: item.order.column,
+                        row:item.order.row - 1,
+                    }
+                }
+                return item
+            })]
         }
     }
 })
