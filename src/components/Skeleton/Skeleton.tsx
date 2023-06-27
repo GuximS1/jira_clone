@@ -11,7 +11,6 @@ export const Skeleton = () => {
 
   const tasks = useAppSelector((state)=>state.task.tasks)
   const dispatch = useAppDispatch()
-
   return (
     <div className="container">
       <p className="title">

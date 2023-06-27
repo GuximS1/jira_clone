@@ -6,7 +6,7 @@ import { Droppable } from "react-beautiful-dnd";
 
 export const SingleColumn = ({ id, name,tasks }: ISingleColumn) => {
   return (
-    <div className="containerColumn" style={{border:'1px solid blue'}}>
+    <div className="containerColumn" >
       <div className="todoContainer">
         <span className="todoText">{name}</span>
       </div>
@@ -16,7 +16,6 @@ export const SingleColumn = ({ id, name,tasks }: ISingleColumn) => {
               <div
                 {...provided.droppableProps}
                 style={{
-                  border:'1px solid red',
                   minHeight:'94%'
                 }}
                 ref={provided.innerRef}
