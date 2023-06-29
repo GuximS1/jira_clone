@@ -6,7 +6,7 @@ import { Droppable } from "react-beautiful-dnd";
 
 export const SingleColumn = ({ id, name,tasks }: ISingleColumn) => {
   return (
-    <div className="containerColumn">
+    <div className="containerColumn" >
       <div className="todoContainer">
         <span className="todoText">{name}</span>
       </div>
@@ -15,6 +15,9 @@ export const SingleColumn = ({ id, name,tasks }: ISingleColumn) => {
             return (
               <div
                 {...provided.droppableProps}
+                style={{
+                  minHeight:'94%'
+                }}
                 ref={provided.innerRef}
               >
       {tasks.sort((a,b)=>a.order.row-b.order.row).map(({createdDate,id,name,order,priority,sticker,assigned,storyPoints},index)=>{
