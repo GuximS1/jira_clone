@@ -1,0 +1,22 @@
+.ant-modal-content{
+    background-color: #161b22 !important;
+    color: white;
+}
+.ant-modal-close{
+    color: white !important;
+    margin-top: 8px;
+}
+.title{
+    font-size: 24px;
+}
+.ant-input{
+    background: transparent !important;
+    color: white !important;
+}
+.ant-select-selector{
+    background-color: transparent !important;
+    color: white !important;
+}
+.ant-select-arrow{
+    color: white !important;
+}
