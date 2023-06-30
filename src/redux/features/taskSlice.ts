@@ -77,10 +77,13 @@ export const TaskSlice = createSlice({
                 }
                 return item
             })]
+        },
+        emptyBoard:(state)=>{
+            state.tasks = []
         }
     }
 })
 
 export default TaskSlice.reducer;
 
-export const { addTask,reOrder } = TaskSlice.actions
+export const { addTask,reOrder,emptyBoard } = TaskSlice.actions

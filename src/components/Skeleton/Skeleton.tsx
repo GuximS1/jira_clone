@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { CalendarTwoTone } from "@ant-design/icons";
+import { CalendarTwoTone,QuestionCircleOutlined } from "@ant-design/icons";
 import "./Skeleton.css";
 import { SingleColumn } from "../SingleColumn/SingleColumn";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { DragDropContext } from "react-beautiful-dnd";
-import { reOrder } from "../../redux/features/taskSlice";
-import { Button } from "antd";
+import { emptyBoard, reOrder } from "../../redux/features/taskSlice";
+import { Button, Popconfirm } from "antd";
 import { CreateTaskModal } from "../CreateTaskModal/CreateTaskModal";
 
 export const Skeleton = () => {
@@ -22,7 +22,14 @@ export const Skeleton = () => {
         <CalendarTwoTone /> Board
       </p>
       <div className="board-tools">
-        <div className="empty-board">Empty board btn</div>
+      <Popconfirm
+       title="Empty the board"
+       description="Are you sure you want to delete all the board tasks?"
+       icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+       onConfirm={()=>dispatch(emptyBoard())}
+       >
+        <Button type="primary" color="red" danger size="large">Empty board</Button>
+       </Popconfirm>
         <div className="employee-avatars">Employees avatars</div>
         <div className="add-employee-icon">Icon</div>
         <div className="ordering">Ordering</div>
