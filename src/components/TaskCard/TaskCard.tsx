@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import './TaskCard.css'
 import { Avatar, Tag } from 'antd'
 import { DoubleLeftOutlined,DoubleRightOutlined,LeftOutlined,RightOutlined,PauseOutlined  } from '@ant-design/icons'
@@ -7,7 +7,10 @@ import { Draggable } from 'react-beautiful-dnd'
 
 const TaskCard = ({createdDate,id,name,priority,sticker,assigned,storyPoints,order}:Task) => {
     const colors = ['blue','red','green','yellow','purple']
-    const randomColor = colors[Math.floor(Math.random() * colors.length)]
+    const randomColor = useMemo(() => {
+      return  colors[sticker.length % colors.length]
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sticker])
     const avatars = ['https://www.w3schools.com/howto/img_avatar.png',
                      'https://www.w3schools.com/howto/img_avatar2.png',
                      'https://www.w3schools.com/w3images/avatar2.png',

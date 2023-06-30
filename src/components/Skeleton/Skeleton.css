@@ -40,12 +40,6 @@
   align-items: center;
   margin-left: auto;
 }
-.create-btn {
-  border: 1px solid white;
-  display: flex;
-  height: 40px;
-  align-items: center;
-}
 .board {
   margin-top: 8px;
   flex-grow: 1;

@@ -20,7 +20,7 @@ export const fakeTasks: Task[] = [
     {
       id: "2",
       name: "Refactor Database Model",
-      sticker: "Database",
+      sticker: "DevOps",
       priority: "high",
       storyPoints: 3,
       createdDate: "02-06-2023",
