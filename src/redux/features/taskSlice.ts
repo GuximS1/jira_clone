@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Task } from '../../types/taskcard'
+import { PayloadActionTask, Task } from '../../types/taskcard'
 import { fakeTasks } from './sliceFakeData'
 import { DropResult } from 'react-beautiful-dnd'
 
@@ -14,7 +14,7 @@ export const TaskSlice = createSlice({
     name:'task',
     initialState,
     reducers: {
-        addTask: (state,action: PayloadAction<Task>) => {
+        addTask: (state,action: PayloadAction<PayloadActionTask> ) => {
             const task = {
                 id: state.tasks.length ? String(Number(state.tasks[state.tasks.length-1].id) + 1 ): "1",
                 name: action.payload.name,

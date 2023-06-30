@@ -3,6 +3,9 @@ import './CreateTaskModal.css'
 import { DoubleLeftOutlined,DoubleRightOutlined,LeftOutlined,RightOutlined,PauseOutlined  } from '@ant-design/icons'
 
 import dayjs from 'dayjs'
+import { useAppDispatch } from '../../redux/store'
+import { TaskCreated } from '../../types/taskcard'
+import { addTask } from '../../redux/features/taskSlice'
 
 const priorityObj = {
     lowest: <DoubleRightOutlined rotate={90} style={{color:'blueviolet',fontSize:'14px',}}/>,
@@ -25,22 +28,47 @@ const initialValues = {
   storyPoints: 0,
   assigned: undefined
 }
-export const CreateTaskModal = () => {
+export const CreateTaskModal = ({visible,onCancel}:{visible:boolean,onCancel: ()=>void}) => {
   const [form] = Form.useForm(); 
   
  const onFail = () =>{
   notification.error({
     message:'Creating a task failed',
     description: "Please make sure you fill all the fields!"
-  })
-  console.log(dayjs().format('DD-MM-YYYY'))
+  })  
  }
+ 
+ const onFormFinish = (values: TaskCreated) => {
+  const assignedEmployee = options.find((item)=>item.value===values.assigned)
+  dispatch(addTask({
+    name:values.name,
+    sticker: values.sticker,
+    priority: values.priority,
+    createdDate: dayjs().format('DD-MM-YYYY'),
+    storyPoints: values.storyPoints,
+    assigned: assignedEmployee ? {
+      id: assignedEmployee.value,
+      name: assignedEmployee.label
+    } : undefined
+  }))
+  notification.success({
+    message:'Task created successfully',
+    description: "The new task has been added to the end of TODO column!"
+  })
+  onCancel()
+  form.setFieldsValue(initialValues)
+ }
+ const dispatch = useAppDispatch()
+
   return (
-    <Modal open footer={null} style={{marginTop:'-50px'}}>
+    <Modal open={visible} footer={null} style={{marginTop:'-50px'}} onCancel={()=>{
+      onCancel()
+      form.setFieldsValue(initialValues)
+      }}>
       <Form
       form={form}
       layout="vertical"
-      onFinish={console.log}
+      onFinish={onFormFinish}
       onFinishFailed={onFail}
       autoComplete="off"
       initialValues={initialValues}
@@ -86,7 +114,10 @@ export const CreateTaskModal = () => {
           <Select size='large'options={options} />
         </Form.Item>
         <Form.Item style={{display:"flex",justifyContent:"flex-end"}}>
-          <Button htmlType='button' size='middle' style={{color:"white",background:'#161b22',marginRight:'8px'}}>Cancel</Button>
+          <Button htmlType='button' size='middle' style={{color:"white",background:'#161b22',marginRight:'8px'}} onClick={()=>{
+            onCancel()
+            form.setFieldsValue(initialValues)
+            }}>Cancel</Button>
           <Button htmlType='submit' size='middle' style={{color:"white",background:"#238636",border:'0px'}}>Create new task</Button>
         </Form.Item>
       </Form>

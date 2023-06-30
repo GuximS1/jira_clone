@@ -14,3 +14,23 @@ export interface Task {
         name: string
     }
 }
+
+export interface TaskCreated {
+    name: string
+    sticker: string
+    priority: 'lowest'|'low'|'medium'|'high'|'highest'
+    storyPoints?: number
+    assigned?: number
+}
+
+export interface PayloadActionTask {
+    name: string,
+    sticker: string
+    priority: 'lowest'|'low'|'medium'|'high'|'highest'
+    storyPoints?: number
+    assigned?: {
+        id: number
+        name: string
+    }
+    createdDate: string
+}
