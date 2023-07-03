@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Button,
   Divider,
@@ -7,7 +8,6 @@ import {
   Select,
   notification,
 } from "antd";
-import "./CreateTaskModal.css";
 import {
   DoubleLeftOutlined,
   DoubleRightOutlined,
@@ -15,11 +15,7 @@ import {
   RightOutlined,
   PauseOutlined,
 } from "@ant-design/icons";
-
-import dayjs from "dayjs";
-import { useAppDispatch } from "../../redux/store";
-import { TaskCreated } from "../../types/taskcard";
-import { addTask } from "../../redux/features/taskSlice";
+import { Task, TaskCreated } from "../../types/taskcard";
 
 const priorityObj = {
   lowest: (
@@ -39,62 +35,27 @@ const priorityObj = {
   ),
 };
 
-const options = [
-  { label: "John Doe", value: 1 },
-  { label: "Jane Smith", value: 2 },
-  { label: "Alice Johnson", value: 3 },
-  { label: "Mark Thompson", value: 4 },
-];
-const initialValues = {
-  name: undefined,
-  sticker: undefined,
-  priority: "lowest",
-  storyPoints: 0,
-  assigned: undefined,
-};
-export const CreateTaskModal = ({
+const EditTaskModal = ({
   visible,
   onCancel,
+  initialValues,
 }: {
   visible: boolean;
   onCancel: () => void;
+  initialValues: Task;
 }) => {
   const [form] = Form.useForm();
 
   const onFail = () => {
     notification.error({
-      message: "Creating a task failed",
+      message: "Updating a task failed",
       description: "Please make sure you fill all the fields!",
     });
   };
 
   const onFormFinish = (values: TaskCreated) => {
-    const assignedEmployee = options.find(
-      (item) => item.value === values.assigned
-    );
-    dispatch(
-      addTask({
-        name: values.name,
-        sticker: values.sticker,
-        priority: values.priority,
-        createdDate: dayjs().format("DD-MM-YYYY"),
-        storyPoints: values.storyPoints,
-        assigned: assignedEmployee
-          ? {
-              id: assignedEmployee.value,
-              name: assignedEmployee.label,
-            }
-          : undefined,
-      })
-    );
-    notification.success({
-      message: "Task created successfully",
-      description: "The new task has been added to the end of TODO column!",
-    });
     onCancel();
-    form.setFieldsValue(initialValues);
   };
-  const dispatch = useAppDispatch();
 
   return (
     <Modal
@@ -103,7 +64,7 @@ export const CreateTaskModal = ({
       style={{ marginTop: "-50px" }}
       onCancel={() => {
         onCancel();
-        form.setFieldsValue(initialValues);
+        form.resetFields();
       }}
     >
       <Form
@@ -114,7 +75,7 @@ export const CreateTaskModal = ({
         autoComplete="off"
         initialValues={initialValues}
       >
-        <span className="title">Create a task</span>
+        <span className="title">Edit a task</span>
         <Divider style={{ background: "white" }} />
         <Form.Item
           name="name"
@@ -164,12 +125,7 @@ export const CreateTaskModal = ({
         >
           <Input size="large" type="number" />
         </Form.Item>
-        <Form.Item
-          name="assigned"
-          label={<label style={{ color: "white" }}>Assigned</label>}
-        >
-          <Select size="large" options={options} />
-        </Form.Item>
+
         <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             htmlType="button"
@@ -181,7 +137,6 @@ export const CreateTaskModal = ({
             }}
             onClick={() => {
               onCancel();
-              form.setFieldsValue(initialValues);
             }}
           >
             Cancel
@@ -191,10 +146,12 @@ export const CreateTaskModal = ({
             size="middle"
             style={{ color: "white", background: "#238636", border: "0px" }}
           >
-            Create new task
+            Edit the task
           </Button>
         </Form.Item>
       </Form>
     </Modal>
   );
 };
+
+export default EditTaskModal;
